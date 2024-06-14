@@ -1,0 +1,23 @@
+@import './styles/variables';
+@import './styles/mixins';
+@import './styles/mediaqueries';
+@import './styles/globals';
+@import './styles/base';
+
+// Light Theme
+:root {
+    --primary-color: #{$light-primary-color};
+    --secondary-color: #{$light-secondary-color};
+    --background-color: #{$light-background-color};
+    --text-color: #{$light-text-color};
+    --border-color: #{$light-border-color};
+}
+
+// Dark Theme
+[data-theme='dark'] {
+    --primary-color: #{$dark-primary-color};
+    --secondary-color: #{$dark-secondary-color};
+    --background-color: #{$dark-background-color};
+    --text-color: #{$dark-text-color};
+    --border-color: #{$dark-border-color};
+}

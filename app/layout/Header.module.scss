@@ -1,0 +1,15 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.header {
+    @include flex-center;
+    justify-content: space-between;
+    padding: $spacing-unit;
+    background-color: var(--background-color);
+    
+
+    h1 {
+        color: var(--text-color);
+        margin: 0;
+    }
+}

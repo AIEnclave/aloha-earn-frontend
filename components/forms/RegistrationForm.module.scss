@@ -1,0 +1,27 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.registrationForm {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-unit;
+
+    input {
+        padding: 0.5rem;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        background-color: var(--background-color);
+        color: var(--text-color);
+    }
+
+    button {
+        @include button-style;
+        background-color: var(--primary-color);
+        color: var(--text-color);
+    }
+
+    .error {
+        color: red;
+        font-size: 0.875rem;
+    }
+}
