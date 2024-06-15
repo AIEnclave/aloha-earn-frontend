@@ -12,7 +12,7 @@ export const Header: React.FC = () => {
     return (
         <header className={styles.header}>
             <h1>Aloha Earn</h1>
-            <ThemeToggleButton />
+            {/* <ThemeToggleButton /> */}
             {/* Add navigation links here */}
         </header>
     );

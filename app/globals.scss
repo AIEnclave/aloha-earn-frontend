@@ -11,6 +11,10 @@
     --background-color: #{$light-background-color};
     --text-color: #{$light-text-color};
     --border-color: #{$light-border-color};
+    --brand-700: #{$light-brand-700};
+    --brand-500: #{$light-brand-500};
+    --brand-300: #{$light-brand-300};
+    --brand-100: #{$light-brand-100};
 }
 
 // Dark Theme
@@ -20,4 +24,8 @@
     --background-color: #{$dark-background-color};
     --text-color: #{$dark-text-color};
     --border-color: #{$dark-border-color};
+    --brand-700: #{$light-brand-700};
+    --brand-500: #{$light-brand-500};
+    --brand-300: #{$light-brand-300};
+    --brand-100: #{$light-brand-100};
 }
