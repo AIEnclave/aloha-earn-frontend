@@ -1,27 +1,18 @@
-'use client';
+import SignIn from '@/components/signin';
+import SignedIn from '@/components/signedin';
 
-import styles from './page.module.scss';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
-import Button from '@/components/ui/Button'
-
-import { signIn, signOut, useSession } from 'next-auth/react';
-
-export default function HomePage() {
-  const { data: session } = useSession();
-  console.log(":::styles:::", styles)
+export default async function HomePage() {
+  const session = await getServerSession(authOptions);
+  console.log(":::session:::", session);
   return (
     <div>
       {!session ? (
-        <div className={styles.flexCenterCol}>
-          <h1>Not signed in</h1>
-          <Button onClick={() => signIn('twitter')}>Sign in with Twitter</Button>
-        </div>
+        <SignIn />
       ) : (
-        <div className={styles.flexCenterCol}>
-          {console.log("session::", session)}
-          <h1>Signed in as {session.user?.name}</h1>
-          <Button onClick={() => signOut()}>Sign out</Button>
-        </div>
+        <SignedIn session={session} />
       )}
     </div>
   );
