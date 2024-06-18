@@ -6,5 +6,5 @@ export interface UserProfile {
 export interface UserProfileResponse {
   name: string;
   image?: string;
-  alohaToken?: string;
+  alohaAccessToken?: string;
 }

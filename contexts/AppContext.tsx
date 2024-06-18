@@ -29,8 +29,10 @@ export const GlobalContextProvider = ({ children }) => {
       }));
       const alohaToken = localStorage.getItem('alohaToken');
 			console.log("alohaToken::::", alohaToken)
-      if (!alohaToken && session.user) {
-        signInMutation.mutate(session.user);
+      // if (!alohaToken && session.user) {
+			if (session.user) {
+				console.log("CALLED")
+        signInMutation.mutate(session);
       }
     }
   }, [session, status]);

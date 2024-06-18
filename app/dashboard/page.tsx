@@ -30,12 +30,18 @@ export default function Dashboard() {
   };
 
   const submitReason = (data) => {
-    const newAiPost = aiPosts.filter(post => post.id !== selectedPost);
+    const newAiPost = aiPosts.filter(post => post._id !== selectedPost);
     setAiPosts([...newAiPost]);
     closeModal();
     setSelectedPost(null);
     setRankingType(null);
-    mutate({ reason: data.reason });
+    mutate({
+      response: data.reason,
+      reasonId: selectedPost,
+      rate: rankingType === "upvote" ? 1 : -1,
+      evaluatorId: selectedPost,
+      isValidReason: true
+    });
     reset()
   };
 
@@ -83,10 +89,10 @@ export default function Dashboard() {
       {aiPosts.map(post => (
         <div key={post.id} className={styles.inner}>
           <h2>{post.prompt}</h2>
-          <p>{post.content}</p>
+          <p>{post.answer}</p>
           <div className={styles.flexBtnGroup}>
-            <Button onClick={() => selectedForRanking(post.id, "upvote")}>Upvote</Button>
-            <Button onClick={() => selectedForRanking(post.id, "downvote")}>Downvote</Button>
+            <Button onClick={() => selectedForRanking(post._id, "upvote")}>Upvote</Button>
+            <Button onClick={() => selectedForRanking(post._id, "downvote")}>Downvote</Button>
           </div>
         </div>
       ))}

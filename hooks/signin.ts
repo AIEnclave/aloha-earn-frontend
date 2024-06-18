@@ -29,8 +29,8 @@ export const useSignInUser = () => {
     onSuccess: (data: UserProfileResponse, variables, context) => {
       // `data` is the response from the API
       console.log("data:::", data)
-      if (data.alohaToken) {
-        localStorage.setItem('alohaToken', data.alohaToken);
+      if (data.alohaAccessToken) {
+        localStorage.setItem('alohaToken', data.alohaAccessToken);
       }
       queryClient.setQueryData<UserProfileResponse[]>(['userInfo'], old => {
         return [data, ...(old || [])];
@@ -39,9 +39,9 @@ export const useSignInUser = () => {
   });
 };
 
-export const useFetchUser = (userId: number) => {
-  return useQuery({
-    queryKey: ['userInfo', userId],
-    queryFn: () => fetchUser(userId)
-  })
-};
+// export const useFetchUser = (userId: number) => {
+//   return useQuery({
+//     queryKey: ['userInfo', userId],
+//     queryFn: () => fetchUser(userId)
+//   })
+// };

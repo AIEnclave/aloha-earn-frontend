@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 
 export default function Main({ session }: {session: any}) {
 	const router = useRouter();
+	console.log("sessionLL", session)
 	useEffect(() => {
 		if (session) {
 			router.push('/onboarding');

@@ -2,20 +2,14 @@ import axiosInstance from '@/utils/axiosInstance';
 
 import { UserProfile } from '@/types/user'
 
-export const saveUserCategories = (user: any) => {
-	return {
-		
-	}
+export const saveUserCategories = (selectedCategories: string[]) => {
+	return axiosInstance.put('/users', {
+		categories: selectedCategories,
+	}).then((data) => data.data)
 	// return axiosInstance.post('/api/users/login', user)
 }
 
 export const fetchSelectedCategories = () => {
-	return {
-		categories: [
-            "OCR",
-            "Real Estate",
-            "Contracts",
-        ]
-	}
+	return axiosInstance.get('/users/categories').then((data) => data.data)
 	// return axiosInstance.get('/api/users/login', user)
 }

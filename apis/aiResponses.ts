@@ -49,7 +49,7 @@ export const fetchAiResponses = async () => {
           downvote: 25
         }
       ]
-	return AIPosts
-	// const response = await axiosInstance.get<UserProfile>(`/api/users/${id}`);
-	// return response.data;
+	// return AIPosts
+	const response = await axiosInstance.get(`/ai-node-responses`);
+	return response.data;
 }
