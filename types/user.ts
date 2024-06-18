@@ -1,7 +1,10 @@
 export interface UserProfile {
-    id: string;
-    name: string;
-    email: string;
-    bio?: string;
-  }
-  
+  name: string;
+  image?: string;
+}
+
+export interface UserProfileResponse {
+  name: string;
+  image?: string;
+  alohaToken?: string;
+}

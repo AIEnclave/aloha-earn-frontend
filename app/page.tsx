@@ -1,5 +1,4 @@
-import SignIn from '@/components/signin';
-import SignedIn from '@/components/signedin';
+import Main from '@/components/main';
 
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
@@ -9,11 +8,7 @@ export default async function HomePage() {
   console.log(":::session:::", session);
   return (
     <div>
-      {!session ? (
-        <SignIn />
-      ) : (
-        <SignedIn session={session} />
-      )}
+      <Main session={session} />
     </div>
   );
 }

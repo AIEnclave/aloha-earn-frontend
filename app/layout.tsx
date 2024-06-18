@@ -2,9 +2,10 @@
 
 import './globals.scss';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { AuthProvider } from '../contexts/AuthContext';
-import { ThemeProvider } from '../contexts/ThemeContext';
-import ReactQueryPvorider from '../contexts/ReactQueryPvorider';
+import { AuthProvider } from '@/contexts/AuthContext';
+import { ThemeProvider } from '@/contexts/ThemeContext';
+import { GlobalContextProvider } from '@/contexts/AppContext';
+import ReactQueryPvorider from '@/contexts/ReactQueryPvorider';
 import { SessionProvider } from 'next-auth/react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
@@ -24,13 +25,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <SessionProvider>
             <ThemeProvider>
               <AuthProvider>
-                <div className="layout">
-                  <Header />
-                  <main className="main">
-                    {children}
-                  </main>
-                  <Footer />
-                </div>
+                <GlobalContextProvider>
+                  <div className="layout">
+                    <Header />
+                    <main className="main">
+                      {children}
+                    </main>
+                    <Footer />
+                  </div>
+                </GlobalContextProvider>
               </AuthProvider>
             </ThemeProvider>
           </SessionProvider>

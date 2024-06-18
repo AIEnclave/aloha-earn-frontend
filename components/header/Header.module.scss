@@ -5,11 +5,25 @@
     @include flex-center;
     justify-content: space-between;
     padding: $spacing-unit;
-    background-color: var(--background-color);
+    background-color: var(--secondary-background-color);
     
 
     h1 {
         color: var(--text-color);
         margin: 0;
+        cursor: pointer;
     }
+
+}
+
+.name {
+    text-align: center;
+    font-size: 10px;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

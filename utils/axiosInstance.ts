@@ -6,7 +6,7 @@ const axiosInstance: AxiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig): AxiosRequestConfig => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('alohaToken');
     if (token && config.headers) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }

@@ -10,20 +10,18 @@ export const authOptions = {
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
-	callbacks: {
-		async session({ session, token }: { session: string, token: string }) {
-			session.token = token;
-			return session;
-		},
-		async signIn({ user, account, profile, email, credentials }: { user: string, account: any, profile: any, email: string, credentials: any }) {
-			// api call to save information
-			return true
-		},
-	},
+  callbacks: {
+    async session({ session, token }) {
+      session.token = token;
+      return session;
+    },
+    async signIn({ user, account, profile, email, credentials }) {
+      // api call to save information
+      return true;
+    },
+  },
 };
 
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
-
-

@@ -8,6 +8,7 @@
 :root {
     --primary-color: #{$light-primary-color};
     --secondary-color: #{$light-secondary-color};
+    --secondary-background-color: #{$light-secondary-background-color};
     --background-color: #{$light-background-color};
     --text-color: #{$light-text-color};
     --border-color: #{$light-border-color};
@@ -21,6 +22,7 @@
 [data-theme='dark'] {
     --primary-color: #{$dark-primary-color};
     --secondary-color: #{$dark-secondary-color};
+    --secondary-background-color: #{$light-secondary-background-color};
     --background-color: #{$dark-background-color};
     --text-color: #{$dark-text-color};
     --border-color: #{$dark-border-color};
