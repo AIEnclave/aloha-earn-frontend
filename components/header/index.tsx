@@ -15,11 +15,12 @@ export const Header: React.FC = () => {
   const router = useRouter();
   const { state } = useGlobalContext();
   const navigateToHome = () => {
-    if(state?.onboarded) {
-      router.push('/dashboard')
-    } else {
-      router.push('/onboarding')
-    }
+    // if(state?.onboarded) {
+    //   router.push('/dashboard')
+    // } else {
+    //   router.push('/onboarding')
+    // }
+    router.push('/dashboard')
   }
   return (
     <header className={styles.header}>

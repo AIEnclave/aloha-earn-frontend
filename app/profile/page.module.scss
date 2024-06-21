@@ -7,6 +7,23 @@
 	display: flex;
 	flex-direction: column;
 	gap: 4rem;
+	.center {
+		margin: auto;
+		text-align: center;
+		img {
+			border-radius: 50px;
+		}
+	}
+	.centerbtngrp {
+		display: flex;
+		justify-content: center;
+		gap: 1rem;
+	}
+	.centerbtn {
+		margin: auto;
+		text-align: center;
+		width: 25%;
+	}
 }
 .flexCategories {
 	display: flex;

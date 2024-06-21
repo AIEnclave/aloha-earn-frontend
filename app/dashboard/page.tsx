@@ -10,18 +10,45 @@ import * as Yup from 'yup';
 import { useRouter } from 'next/navigation';
 import Input from '@/components/ui/Input';
 import TextArea from '@/components/ui/TextArea';
-import { useMutateEvaluation } from "@/hooks/evaluation";
-import { useFetchAiResponses } from '@/hooks/airesponses';
+import { useMutateEvaluation, userVerifyEvaluations } from "@/hooks/evaluation";
+import { useFetchAiResponses } from '@/hooks/aiResponses';
+import Loader from '../../components/ui/Loader';
 
 export default function Dashboard() {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [reasonObjToSave, setReasonObjToSave] = useState({});
   const [selectedPost, setSelectedPost] = useState(null);
+  const [generating, setGenerating] = useState(false);
+  const [wrongResponseError, setWrongResponseError] = useState(null);
   const [rankingType, setRankingType] = useState(null);
   const [aiPosts, setAiPosts] = useState([]);
-  
+
   const openModal = () => setModalOpen(true);
   const { mutate } = useMutateEvaluation();
-  const closeModal = () => setModalOpen(false);
+  const { mutate: mutateVerifyEvaluation } = userVerifyEvaluations((response: any) => {
+    console.log("API DATA:    , ", response)
+    setGenerating(false)
+    if (response.result) {
+      mutate(reasonObjToSave);
+      closeModal();
+      reset();
+      const newAiPost = aiPosts.filter(post => post._id !== selectedPost);
+      setAiPosts([...newAiPost]);
+    } else {
+      setWrongResponseError(response.reason)
+    }
+  })
+  const closeModal = () => {
+    setModalOpen(false)
+    reset()
+    setReasonObjToSave({})
+    setWrongResponseError(null)
+    setGenerating(false)
+    setReasonObjToSave({})
+    setSelectedPost(null);
+    setRankingType(null);
+  };
+
 
   const selectedForRanking = (id, type) => {
     setSelectedPost(id);
@@ -30,27 +57,38 @@ export default function Dashboard() {
   };
 
   const submitReason = (data) => {
-    const newAiPost = aiPosts.filter(post => post._id !== selectedPost);
-    setAiPosts([...newAiPost]);
-    closeModal();
-    setSelectedPost(null);
-    setRankingType(null);
-    mutate({
+    const selectedPostDetails = aiPosts.find(post => post._id === selectedPost)
+    setGenerating(true)
+    mutateVerifyEvaluation({
+      prompt: `
+        originalQuestion:  ${selectedPostDetails.prompt} 
+        originalResponse: ${selectedPostDetails.answer}
+        userComment: ${data.reason}
+      `
+    })
+    setReasonObjToSave({
       response: data.reason,
       reasonId: selectedPost,
       rate: rankingType === "upvote" ? 1 : -1,
       evaluatorId: selectedPost,
       isValidReason: true
-    });
-    reset()
+    })
+    // mutate({
+    //   response: data.reason,
+    //   reasonId: selectedPost,
+    //   rate: rankingType === "upvote" ? 1 : -1,
+    //   evaluatorId: selectedPost,
+    //   isValidReason: true
+    // });
   };
 
   const { data, isLoading, error } = useFetchAiResponses();
 
+
   const validationSchema = Yup.object().shape({
     reason: Yup.string()
       .required('Reason is required')
-      // .min(20, 'Reason must be at least 20 characters')
+    // .min(20, 'Reason must be at least 20 characters')
   });
 
   const {
@@ -81,7 +119,15 @@ export default function Dashboard() {
             <div className={styles.flexcol}>
               <textarea {...register('reason')} rows={5} />
               <span>{errors.reason?.message}</span>
-              <Button type="submit">Submit</Button>
+              <span>{wrongResponseError}</span>
+              {generating ? (
+                <div className={styles.loader}>
+                  <Loader/>
+                </div>
+              ) : (
+                <Button type="submit">Submit</Button>
+              )}
+
             </div>
           </form>
         </Modal>

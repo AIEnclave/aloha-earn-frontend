@@ -39,6 +39,11 @@ export const useSignInUser = () => {
   });
 };
 
+export const useCachedUserInfo = () => {
+  const queryClient = useQueryClient();
+  return queryClient.getQueryData<UserProfileResponse[]>(['userInfo']);
+};
+
 // export const useFetchUser = (userId: number) => {
 //   return useQuery({
 //     queryKey: ['userInfo', userId],
